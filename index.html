@@ -9,14 +9,14 @@
   <title>Date Decider — Tomorrow</title>
   <style>
     :root{
-      --bg1:#0b1020;
-      --bg2:#120a1f;
-      --card: rgba(255,255,255,.08);
-      --card2: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.68);
-      --line: rgba(255,255,255,.14);
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --bg1:#f6f7ff;
+      --bg2:#fff6fb;
+      --card: rgba(255,255,255,.72);
+      --card2: rgba(255,255,255,.82);
+      --text: rgba(20,22,30,.92);
+      --muted:  rgba(20,22,30,.62);
+      --line: rgba(20,22,30,.12);
+      --shadow: 0 18px 50px rgba(20,22,30,.12);
       --r: 22px;
     }
 
@@ -28,9 +28,9 @@
       color:var(--text);
       overflow-x:hidden;
       background:
-        radial-gradient(1200px 700px at 20% 20%, rgba(180,80,255,.22), transparent 60%),
-        radial-gradient(900px 600px at 80% 30%, rgba(80,180,255,.20), transparent 55%),
-        radial-gradient(900px 700px at 40% 85%, rgba(255,140,80,.16), transparent 55%),
+        radial-gradient(1200px 700px at 20% 15%, rgba(120,180,255,.30), transparent 60%),
+        radial-gradient(900px 600px at 80% 20%, rgba(255,150,210,.28), transparent 55%),
+        radial-gradient(900px 700px at 40% 90%, rgba(140,255,210,.22), transparent 55%),
         linear-gradient(135deg, var(--bg1), var(--bg2));
     }
 
@@ -40,7 +40,7 @@
       position:fixed; inset:0;
       background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="3" stitchTiles="stitch"/></filter><rect width="180" height="180" filter="url(%23n)" opacity=".35"/></svg>');
       mix-blend-mode: overlay;
-      opacity:.06;
+      opacity:.035;
       animation: float 10s ease-in-out infinite alternate;
     }
     @keyframes float{ from{transform:translate3d(0,0,0)} to{transform:translate3d(12px,-8px,0)} }
