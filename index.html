@@ -1,267 +1,77 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>The Ritual</title>
-
-  <style>
-    :root {
-      --p: #c2d1ff; 
-      --bg: #050507;
-      --glass: rgba(255, 255, 255, 0.03);
-      --glass-stroke: rgba(255, 255, 255, 0.1);
-      --text: #ffffff;
-      --text-soft: rgba(255, 255, 255, 0.4);
-    }
-
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    
-    body {
-      margin: 0; font-family: -apple-system, "SF Pro Display", sans-serif;
-      background: var(--bg); color: var(--text);
-      height: 100dvh; overflow: hidden;
-      display: flex; flex-direction: column;
-    }
-
-    .mesh {
-      position: fixed; inset: 0; z-index: -1;
-      background: 
-        radial-gradient(circle at 15% 15%, rgba(194, 209, 255, 0.1) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(255, 209, 232, 0.08) 0%, transparent 40%);
-      filter: blur(80px);
-    }
-
-    header {
-      padding: calc(env(safe-area-inset-top) + 20px) 30px;
-      display: flex; justify-content: space-between; align-items: center;
-      z-index: 10;
-    }
-
-    .audio-trigger {
-      background: var(--glass); border: 1px solid var(--glass-stroke);
-      padding: 8px 16px; border-radius: 100px; font-size: 10px;
-      letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;
-      backdrop-filter: blur(10px); color: var(--p);
-    }
-
-    main {
-      flex: 1; position: relative;
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px;
-    }
-
-    /* THE LOCKED CONTAINER: Ensures all tabs look the same */
-    .ritual-container {
-      width: 100%; max-width: 380px;
-      height: 460px; /* Fixed height for consistency */
-      position: relative;
-    }
-
-    .tab-view {
-      position: absolute; inset: 0;
-      display: none; opacity: 0; 
-      transform: translateY(10px);
-      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .tab-view.active { display: flex; opacity: 1; transform: translateY(0); }
-
-    .glass-inner {
-      background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%);
-      backdrop-filter: blur(50px);
-      border: 1px solid var(--glass-stroke);
-      border-radius: 44px; padding: 40px 25px;
-      text-align: center; width: 100%; height: 100%;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.6);
-    }
-
-    h1 { font-size: 30px; font-weight: 600; margin: 0 0 10px; letter-spacing: -1.2px; }
-    p { font-size: 16px; color: var(--text-soft); line-height: 1.5; margin: 0 0 30px; max-width: 90%; }
-
-    .btn {
-      background: #fff; color: #000; border: none;
-      padding: 20px; border-radius: 22px; font-size: 16px;
-      font-weight: 700; width: 100%; cursor: pointer;
-      transition: transform 0.2s cubic-bezier(0.2, 1, 0.3, 1);
-    }
-    .btn:active { transform: scale(0.96); }
-    .btn-outline { background: transparent; color: #fff; border: 1px solid var(--glass-stroke); margin-top: 10px; }
-
-    /* Compact Timeline - prevents scrolling */
-    .compact-list {
-      width: 100%; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px;
-    }
-    .list-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 20px; border-radius: 18px; background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.02);
-    }
-    .item-time { font-size: 10px; font-weight: 800; color: var(--p); letter-spacing: 0.5px; }
-    .item-text { font-size: 14px; font-weight: 500; color: #fff; }
-
-    /* Navigation Dots */
-    nav {
-      position: fixed; bottom: calc(env(safe-area-inset-bottom) + 30px);
-      left: 50%; transform: translateX(-50%);
-      display: flex; gap: 10px; z-index: 100;
-    }
-    .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--glass-stroke); transition: 0.4s;
-    }
-    .dot.active { background: var(--p); width: 20px; border-radius: 10px; }
-
-    /* Animation for the Decision Phase */
-    @keyframes pulse-glow {
-      0% { border-color: var(--glass-stroke); }
-      50% { border-color: var(--p); box-shadow: 0 0 30px rgba(194, 209, 255, 0.1); }
-      100% { border-color: var(--glass-stroke); }
-    }
-    .thinking .glass-inner { animation: pulse-glow 1.5s infinite; }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Decider</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .tab {
+            display: inline-block;
+            margin: 20px 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background: #eaeaea;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .tab:hover {
+            background: #d4d4d4;
+        }
+        .active {
+            background: #35424a;
+            color: #fff;
+        }
+        @media screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            header {
+                font-size: 1.2em;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <div class="mesh"></div>
-
-  <header>
-    <div style="font-weight: 700; font-size: 11px; letter-spacing: 2px; color: var(--text-soft);">THE RITUAL</div>
-    <div class="audio-trigger" id="audioBtn" onclick="toggleAudio()">Sound Off</div>
-  </header>
-
-  <main>
-    <div class="ritual-container" id="ritualCard">
-      
-      <div id="view-story" class="tab-view active">
-        <div class="glass-inner">
-          <div style="font-size: 38px; margin-bottom: 15px;">🌑</div>
-          <h1>The Beginning</h1>
-          <p>Tomorrow is an open door. Step away from the noise and let the day unfold.</p>
-          <button class="btn" onclick="next('vibe')">Begin the ritual</button>
+    <header>
+        <h1>Date Decider</h1>
+    </header>
+    <div class="container">
+        <div class="tab active">Tab 1</div>
+        <div class="tab">Tab 2</div>
+        <div class="tab">Tab 3</div>
+        <div id="content">
+            <p>Content goes here...</p>
         </div>
-      </div>
-
-      <div id="view-vibe" class="tab-view">
-        <div class="glass-inner">
-          <div style="font-size: 38px; margin-bottom: 15px;">✨</div>
-          <h1>Stillness</h1>
-          <p>We are leaving the plans behind. Take a breath and trust the rhythm of the ritual.</p>
-          <button class="btn" onclick="next('decide')">Step forward</button>
-        </div>
-      </div>
-
-      <div id="view-decide" class="tab-view">
-        <div class="glass-inner">
-          <div id="roll-ui">
-            <div style="font-size: 38px; margin-bottom: 15px;">🔮</div>
-            <h1>Invite Fate</h1>
-            <p>The universe will now decide the frequency for your Saturday.</p>
-            <button class="btn" onclick="startRolling()">Consult the stars</button>
-          </div>
-          
-          <div id="result-ui" style="display: none;">
-            <div style="font-size: 10px; font-weight: 800; color: var(--p); letter-spacing: 2px; margin-bottom: 10px;">VIBE SELECTED</div>
-            <h1 id="res-title">...</h1>
-            <p id="res-desc">...</p>
-            <button class="btn" onclick="next('plan')">Reveal Schedule</button>
-            <button class="btn btn-outline" onclick="startRolling()">Reroll fate</button>
-          </div>
-        </div>
-      </div>
-
-      <div id="view-plan" class="tab-view">
-        <div class="glass-inner" style="justify-content: flex-start; padding-top: 45px;">
-          <h2 id="plan-name" style="margin: 0 0 25px; font-size: 24px;">The Path</h2>
-          <div class="compact-list" id="timeline"></div>
-          <button class="btn btn-outline" style="margin-top: auto;" onclick="location.reload()">Reset ritual</button>
-        </div>
-      </div>
-
     </div>
-  </main>
-
-  <nav>
-    <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
-  </nav>
-
-  <script>
-    const OPTIONS = [
-      { name: "Urban Bloom", icon: "🏙️", d: "City lights and shared motion.", s: [["10:30", "Slow Coffee"], ["12:30", "Urban Brunch"], ["15:00", "Gallery Walk"], ["19:30", "Night Dinner"]] },
-      { name: "Velvet Home", icon: "🏠", d: "Comfort and soft light.", s: [["11:00", "Silk Morning"], ["13:30", "Co-op Play"], ["16:30", "Quiet Nap"], ["20:00", "Candlelight"]] }
-    ];
-
-    let current = null;
-    let audioCtx, gainNode, osc1, osc2;
-
-    function initAudio() {
-      if (audioCtx) return;
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      gainNode = audioCtx.createGain();
-      gainNode.connect(audioCtx.destination);
-      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-    }
-
-    function toggleAudio() {
-      initAudio();
-      const btn = document.getElementById('audioBtn');
-      if (osc1) {
-        gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1);
-        setTimeout(() => { osc1.stop(); osc2.stop(); osc1 = null; }, 1100);
-        btn.textContent = "Sound Off";
-      } else {
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        osc1 = audioCtx.createOscillator(); osc2 = audioCtx.createOscillator();
-        osc1.frequency.setValueAtTime(196.00, audioCtx.currentTime); 
-        osc2.frequency.setValueAtTime(246.94, audioCtx.currentTime); 
-        osc1.connect(gainNode); osc2.connect(gainNode);
-        osc1.start(); osc2.start();
-        gainNode.gain.exponentialRampToValueAtTime(0.03, audioCtx.currentTime + 2);
-        btn.textContent = "Sound On";
-      }
-    }
-
-    function next(id) {
-      document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
-      const target = document.getElementById('view-' + id);
-      target.style.display = 'flex';
-      setTimeout(() => target.classList.add('active'), 50);
-
-      const dots = document.querySelectorAll('.dot');
-      dots.forEach(d => d.classList.remove('active'));
-      const order = ['story', 'vibe', 'decide', 'plan'];
-      dots[order.indexOf(id)].classList.add('active');
-
-      if (id === 'plan' && current) renderPlan();
-    }
-
-    function startRolling() {
-      const card = document.getElementById('ritualCard');
-      card.classList.add('thinking');
-      document.getElementById('roll-ui').style.display = 'none';
-      document.getElementById('result-ui').style.display = 'none';
-
-      setTimeout(() => {
-        card.classList.remove('thinking');
-        current = OPTIONS[Math.floor(Math.random() * OPTIONS.length)];
-        document.getElementById('res-title').textContent = current.icon + " " + current.name;
-        document.getElementById('res-desc').textContent = current.d;
-        document.getElementById('result-ui').style.display = 'block';
-      }, 1800);
-    }
-
-    function renderPlan() {
-      document.getElementById('plan-name').textContent = current.icon + " " + current.name;
-      document.getElementById('timeline').innerHTML = current.s.map(i => `
-        <div class="list-item">
-          <div class="item-time">${i[0]}</div>
-          <div class="item-text">${i[1]}</div>
-        </div>
-      `).join('');
-    }
-  </script>
+    <script>
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // Load content based on active tab
+            });
+        });
+    </script>
 </body>
 </html>
