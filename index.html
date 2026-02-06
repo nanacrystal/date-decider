@@ -17,21 +17,21 @@
       --muted: #62667a;
       --glass: rgba(255, 255, 255, 0.75);
       --border: rgba(20, 22, 30, 0.08);
-      --radius: 24px;
-      --shadow: 0 12px 34px rgba(20, 22, 30, 0.06);
+      --radius: 28px;
+      --shadow: 0 12px 40px rgba(20, 22, 30, 0.08);
     }
 
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     
     body {
       margin: 0;
-      font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       height: 100vh;
       display: flex;
       flex-direction: column;
-      overflow: hidden; /* Prevent body scroll, scroll inside tabs */
+      overflow: hidden;
     }
 
     /* Animated Background */
@@ -39,51 +39,54 @@
       position: fixed;
       inset: 0;
       z-index: -1;
-      overflow: hidden;
       filter: blur(60px);
-      opacity: 0.6;
+      opacity: 0.5;
     }
     .blob {
       position: absolute;
-      width: 300px;
-      height: 300px;
+      width: 350px;
+      height: 350px;
       border-radius: 50%;
-      animation: float 20s infinite alternate ease-in-out;
+      animation: float 18s infinite alternate ease-in-out;
     }
-    .b1 { background: var(--primary); top: -10%; left: -10%; }
-    .b2 { background: var(--secondary); bottom: 10%; right: -10%; animation-delay: -5s; }
-    .b3 { background: var(--accent); top: 40%; left: 30%; animation-delay: -10s; }
+    .b1 { background: var(--primary); top: -5%; left: -10%; }
+    .b2 { background: var(--secondary); bottom: 5%; right: -10%; animation-delay: -4s; }
+    .b3 { background: var(--accent); top: 30%; left: 20%; animation-delay: -8s; }
 
     @keyframes float {
       from { transform: translate(0,0) scale(1); }
-      to { transform: translate(100px, 50px) scale(1.2); }
+      to { transform: translate(80px, 40px) scale(1.1); }
     }
 
-    /* App Header */
     header {
       padding: calc(env(safe-area-inset-top) + 15px) 20px 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       background: var(--glass);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       z-index: 10;
     }
-    .brand { display: flex; align-items: center; gap: 10px; }
-    .logo { 
-        width: 32px; height: 32px; background: white; 
-        display: grid; place-items: center; border-radius: 10px;
-        box-shadow: var(--shadow); font-size: 18px;
+    .brand { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    
+    /* Progress Bar */
+    .progress-track {
+      height: 4px;
+      background: var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: var(--primary);
+      width: 25%;
+      transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    /* Tab Container */
     main {
       flex: 1;
       position: relative;
       overflow-y: auto;
       padding: 20px;
-      padding-bottom: 100px; /* Space for nav */
+      padding-bottom: 110px;
     }
 
     .tab-content {
@@ -93,29 +96,27 @@
     .tab-content.active { display: block; }
 
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(15px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Card Styling */
     .card {
       background: var(--glass);
-      backdrop-filter: blur(15px);
+      backdrop-filter: blur(20px);
       border: 1px solid white;
       border-radius: var(--radius);
-      padding: 20px;
+      padding: 24px;
       margin-bottom: 20px;
       box-shadow: var(--shadow);
     }
 
-    h1 { font-size: 28px; margin: 0 0 10px; letter-spacing: -0.5px; }
-    p { color: var(--muted); line-height: 1.5; font-size: 15px; }
+    h1 { font-size: 26px; margin: 0 0 12px; letter-spacing: -0.8px; }
+    p { color: var(--muted); line-height: 1.6; font-size: 15px; }
 
-    /* Buttons */
     .btn {
       width: 100%;
-      padding: 16px;
-      border-radius: 16px;
+      padding: 18px;
+      border-radius: 18px;
       border: none;
       font-size: 16px;
       font-weight: 700;
@@ -124,16 +125,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      margin-bottom: 12px;
+      gap: 10px;
+      margin-top: 10px;
     }
-    .btn-primary { 
-      background: var(--text); 
-      color: white; 
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
+    .btn-primary { background: var(--text); color: white; }
     .btn-secondary { background: white; color: var(--text); border: 1px solid var(--border); }
-    .btn:active { transform: scale(0.97); opacity: 0.8; }
+    .btn:active { transform: scale(0.96); opacity: 0.9; }
 
     /* Bottom Navigation */
     nav {
@@ -142,11 +139,11 @@
       left: 0;
       right: 0;
       background: var(--glass);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(25px);
       border-top: 1px solid var(--border);
-      padding: 10px 20px calc(env(safe-area-inset-bottom) + 10px);
+      padding: 10px 10px calc(env(safe-area-inset-bottom) + 10px);
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       z-index: 100;
     }
     .nav-item {
@@ -157,266 +154,198 @@
       background: none;
       border: none;
       color: var(--muted);
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 10px;
+      font-weight: 700;
       transition: 0.2s;
     }
     .nav-item.active { color: var(--primary); }
-    .nav-icon { font-size: 22px; }
-
-    /* Result Animation */
-    @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(5px); }
-      50% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
-      100% { transform: translateX(0); }
-    }
-    .shaking { animation: shake 0.2s infinite; }
+    .nav-icon { font-size: 20px; }
 
     /* Timeline */
     .timeline { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
     .slot {
-      display: flex; gap: 15px; padding: 12px;
+      display: flex; gap: 15px; padding: 14px;
       background: rgba(255,255,255,0.4);
-      border-radius: 14px; border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 16px; border: 1px solid rgba(255,255,255,0.5);
     }
-    .time { font-weight: 800; font-size: 12px; min-width: 80px; color: var(--primary); }
-    .act { font-size: 13px; color: var(--text); }
+    .time { font-weight: 800; font-size: 11px; min-width: 85px; color: var(--primary); text-transform: uppercase; }
+    .act { font-size: 13px; color: var(--text); font-weight: 500; }
 
-    /* Confetti Canvas */
-    #confetti {
-      position: fixed; inset: 0; pointer-events: none; z-index: 99;
+    #confetti { position: fixed; inset: 0; pointer-events: none; z-index: 99; }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 1; }
+      100% { transform: scale(1.1); opacity: 0; }
+    }
+    .pulse-btn::after {
+      content: ''; position: absolute; inset: 0; border-radius: 18px;
+      border: 2px solid var(--primary); animation: pulse-ring 2s infinite;
     }
   </style>
 </head>
 <body>
 
-  <div class="bg-elements">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
-  </div>
-
+  <div class="bg-elements"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
   <canvas id="confetti"></canvas>
 
   <header>
     <div class="brand">
-      <div class="logo">♥</div>
-      <div style="font-weight: 800; font-size: 17px;">Date Decider</div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 20px;">♥</span>
+        <span style="font-weight: 800; font-size: 17px;">Date Decider</span>
+      </div>
+      <div style="font-size: 11px; font-weight: 700; color: var(--muted);" id="dateDisplay"></div>
     </div>
-    <div style="font-size: 12px; opacity: 0.5;" id="dateDisplay"></div>
+    <div class="progress-track"><div class="progress-bar" id="pBar"></div></div>
   </header>
 
   <main>
     <section id="tab-story" class="tab-content active">
       <div class="card">
-        <h1>The Ritual</h1>
-        <p>No more "I don't know, what do you want to do?"</p>
-        <p>Tomorrow is a curated experience. We've defined two paths. All you have to do is let destiny pick the vibe.</p>
-        <button class="btn btn-primary" onclick="switchTab('decider')">Go to Decider →</button>
+        <h1>The Saturday Ritual</h1>
+        <p>Tomorrow isn't a workday. It's a blank canvas for us.</p>
+        <p>Instead of debating what to do, we're letting this little machine choose our path. One click, one vibe, one full day of memories.</p>
+        <button class="btn btn-primary" onclick="switchTab('transition')">Start the ritual →</button>
       </div>
-      <div class="card" style="background: rgba(120, 180, 255, 0.1);">
-        <h3 style="margin-top:0">The Saturday Rule</h3>
-        <p>We sleep in until <b>9:30 AM</b>. No alarms, no stress. The plan only starts when we're ready.</p>
+    </section>
+
+    <section id="tab-transition" class="tab-content">
+      <div class="card" style="text-align: center; padding: 40px 24px;">
+        <div style="font-size: 40px; margin-bottom: 20px;">✨</div>
+        <h1>Take a breath.</h1>
+        <p>Close your eyes for a second. Imagine sunlight, no alarms, and nowhere to be but exactly where we are.</p>
+        <p>When you're ready to let go of the plan and follow the vibe, step forward.</p>
+        <button class="btn btn-primary pulse-btn" style="position:relative;" onclick="switchTab('decider')">Ready to Decide →</button>
       </div>
     </section>
 
     <section id="tab-decider" class="tab-content">
-      <div class="card" id="deciderCard" style="text-align: center; padding: 40px 20px;">
+      <div class="card" id="deciderCard" style="text-align: center; padding: 40px 24px;">
         <div id="deciderPlaceholder">
           <div style="font-size: 50px; margin-bottom: 20px;">🎲</div>
-          <h2>Ready to decide?</h2>
-          <p>Tap the button to flip the digital coin for tomorrow's vibe.</p>
-          <button class="btn btn-primary" onclick="runDecider()">Decide My Day</button>
+          <h2>Destiny is waiting</h2>
+          <p>This will randomly pick between an <b>Out Date</b> and a <b>Stay-home Date</b>.</p>
+          <button class="btn btn-primary" onclick="runDecider()">Roll for Tomorrow</button>
         </div>
         
         <div id="deciderResult" style="display: none;">
-          <div style="text-transform: uppercase; font-size: 12px; font-weight: 800; color: var(--primary); letter-spacing: 1px;">Selected Vibe</div>
-          <h1 id="resultTitle" style="font-size: 40px; margin: 10px 0;">---</h1>
+          <div style="text-transform: uppercase; font-size: 11px; font-weight: 800; color: var(--primary); letter-spacing: 1px;">Destiny Picked</div>
+          <h1 id="resultTitle" style="font-size: 36px; margin: 8px 0;">---</h1>
           <p id="resultDesc">---</p>
-          <div style="display: flex; gap: 10px;">
-            <button class="btn btn-primary" onclick="switchTab('plan')">View Full Plan</button>
-            <button class="btn btn-secondary" onclick="runDecider()">Reroll</button>
-          </div>
+          <button class="btn btn-primary" onclick="switchTab('plan')">See Full Schedule</button>
+          <button class="btn btn-secondary" onclick="runDecider()">Wait, Reroll!</button>
         </div>
       </div>
     </section>
 
     <section id="tab-plan" class="tab-content">
       <div class="card">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-          <div>
-            <h2 id="planTitle">No plan yet</h2>
-            <p id="planSubtitle">Go to the Decider tab first!</p>
-          </div>
-          <button class="logo" onclick="copyPlan()" style="border:none; cursor:pointer">📋</button>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+          <h2 id="planTitle" style="margin:0">No plan yet</h2>
+          <button onclick="copyPlan()" style="background:none; border:none; font-size: 20px;">📋</button>
         </div>
-        
-        <div class="timeline" id="timeline">
-          </div>
+        <div class="timeline" id="timeline"></div>
       </div>
-      <button class="btn btn-secondary" onclick="resetApp()">Reset All</button>
+      <button class="btn btn-secondary" onclick="resetApp()">Start Over</button>
     </section>
   </main>
 
   <nav>
     <button class="nav-item active" onclick="switchTab('story')" id="nav-story">
-      <span class="nav-icon">📖</span>
-      <span>Story</span>
+      <span class="nav-icon">📖</span><span>Story</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('transition')" id="nav-transition">
+      <span class="nav-icon">🍃</span><span>Vibe</span>
     </button>
     <button class="nav-item" onclick="switchTab('decider')" id="nav-decider">
-      <span class="nav-icon">✨</span>
-      <span>Decider</span>
+      <span class="nav-icon">🎲</span><span>Decide</span>
     </button>
     <button class="nav-item" onclick="switchTab('plan')" id="nav-plan">
-      <span class="nav-icon">📅</span>
-      <span>Plan</span>
+      <span class="nav-icon">📅</span><span>Plan</span>
     </button>
   </nav>
 
   <script>
-    // Data
     const OPTIONS = [
       {
-        id: 'out',
-        name: 'Out Date',
-        emoji: '🏙️',
-        desc: 'Getting dressed up, stepping out, and embracing the city energy.',
-        timeline: [
-          ["9:30–10:15", "Gentle wake-up & cuddles."],
-          ["10:30–12:00", "Brunch mission at a cozy cafe."],
-          ["12:00–15:00", "Adventure: Bookstore or Gallery."],
-          ["15:00–17:00", "Park walk and snacks."],
-          ["19:00–21:00", "Dinner with zero phone use."],
-          ["21:00–Late", "Night walk & recap."]
-        ]
+        id: 'out', name: 'Out Date', emoji: '🏙️', desc: 'Step out, feel the city air, and enjoy a change of scenery.',
+        timeline: [["9:30 AM", "Wake up slow."], ["10:30 AM", "Brunch mission."], ["1:00 PM", "Gallery or Bookstore walk."], ["7:00 PM", "Dinner out & no phones."]]
       },
       {
-        id: 'home',
-        name: 'Home Sanctuary',
-        emoji: '🏠',
-        desc: 'Turning the house into a cozy private universe of comfort.',
-        timeline: [
-          ["9:30–11:00", "Super slow morning in bed."],
-          ["11:00–12:30", "Homemade brunch & great music."],
-          ["13:00–15:00", "Gaming or Puzzle session."],
-          ["15:00–17:00", "Afternoon nap & slow kisses."],
-          ["18:00–20:00", "Cook a new recipe together."],
-          ["20:00–Late", "Movies & skincare ritual."]
-        ]
+        id: 'home', name: 'Home Date', emoji: '🏠', desc: 'Total comfort. No shoes, just good food and better company.',
+        timeline: [["10:00 AM", "Breakfast in bed."], ["1:00 PM", "Co-op gaming or puzzle."], ["5:00 PM", "Home Spa/Shower."], ["8:00 PM", "Homemade pasta & a movie."]]
       }
     ];
 
     let currentChoice = JSON.parse(localStorage.getItem('lastDateChoice'));
 
-    // Navigation logic
     function switchTab(tabId) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       
       document.getElementById(`tab-${tabId}`).classList.add('active');
       document.getElementById(`nav-${tabId}`).classList.add('active');
+
+      const progress = { 'story': 25, 'transition': 50, 'decider': 75, 'plan': 100 };
+      document.getElementById('pBar').style.width = progress[tabId] + '%';
       
-      // Auto-populate plan if switching to plan tab
       if (tabId === 'plan' && currentChoice) renderPlan(currentChoice);
+      window.scrollTo(0,0);
     }
 
-    // Decider logic
     function runDecider() {
       const card = document.getElementById('deciderCard');
-      const placeholder = document.getElementById('deciderPlaceholder');
-      const resultView = document.getElementById('deciderResult');
-      
-      placeholder.style.display = 'none';
-      resultView.style.display = 'none';
-      card.classList.add('shaking');
-
-      if (navigator.vibrate) navigator.vibrate([50, 50, 50]);
+      document.getElementById('deciderPlaceholder').style.display = 'none';
+      document.getElementById('deciderResult').style.display = 'none';
+      card.style.animation = 'shake 0.2s infinite';
 
       setTimeout(() => {
-        card.classList.remove('shaking');
+        card.style.animation = '';
         currentChoice = OPTIONS[Math.floor(Math.random() * OPTIONS.length)];
         localStorage.setItem('lastDateChoice', JSON.stringify(currentChoice));
         
         document.getElementById('resultTitle').textContent = currentChoice.emoji + " " + currentChoice.name;
         document.getElementById('resultDesc').textContent = currentChoice.desc;
-        
-        resultView.style.display = 'block';
+        document.getElementById('deciderResult').style.display = 'block';
         launchConfetti();
-      }, 800);
+      }, 1000);
     }
 
     function renderPlan(choice) {
-      document.getElementById('planTitle').textContent = choice.name;
-      document.getElementById('planSubtitle').textContent = "Full schedule for tomorrow";
-      
-      const tl = document.getElementById('timeline');
-      tl.innerHTML = choice.timeline.map(item => `
-        <div class="slot">
-          <div class="time">${item[0]}</div>
-          <div class="act">${item[1]}</div>
-        </div>
+      document.getElementById('planTitle').textContent = choice.emoji + " " + choice.name;
+      document.getElementById('timeline').innerHTML = choice.timeline.map(i => `
+        <div class="slot"><div class="time">${i[0]}</div><div class="act">${i[1]}</div></div>
       `).join('');
     }
 
-    function resetApp() {
-      localStorage.removeItem('lastDateChoice');
-      location.reload();
-    }
+    function resetApp() { localStorage.removeItem('lastDateChoice'); location.reload(); }
 
     async function copyPlan() {
       if(!currentChoice) return;
-      const text = `${currentChoice.name} Plan:\n` + currentChoice.timeline.map(i => `${i[0]}: ${i[1]}`).join('\n');
+      const text = `Tomorrow's Plan: ${currentChoice.name}\n` + currentChoice.timeline.map(i => `${i[0]}: ${i[1]}`).join('\n');
       await navigator.clipboard.writeText(text);
-      alert('Plan copied to clipboard!');
+      alert('Copied to clipboard!');
     }
 
-    // Confetti Effect
-    const canvas = document.getElementById("confetti");
-    const ctx = canvas.getContext("2d");
-    let particles = [];
-    
+    // Basic Confetti
     function launchConfetti() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      particles = [];
-      for(let i=0; i<100; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: canvas.height + 10,
-          color: `hsl(${Math.random() * 360}, 70%, 60%)`,
-          size: Math.random() * 8 + 4,
-          velX: Math.random() * 6 - 3,
-          velY: -(Math.random() * 15 + 10)
-        });
+      const c = document.getElementById("confetti");
+      const ctx = c.getContext("2d");
+      c.width = window.innerWidth; c.height = window.innerHeight;
+      let p = Array.from({length:80}, () => ({
+        x: Math.random()*c.width, y: c.height, 
+        c: `hsl(${Math.random()*360}, 70%, 60%)`, 
+        vX: Math.random()*4-2, vY: -(Math.random()*15+10), s: Math.random()*6+4
+      }));
+      function draw() {
+        ctx.clearRect(0,0,c.width,c.height);
+        p.forEach(i => { i.x+=i.vX; i.y+=i.vY; i.vY+=0.4; ctx.fillStyle=i.c; ctx.fillRect(i.x,i.y,i.s,i.s); });
+        if(p[0].y < c.height + 50) requestAnimationFrame(draw);
       }
-      animateConfetti();
+      draw();
     }
 
-    function animateConfetti() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      particles.forEach((p, i) => {
-        p.x += p.velX;
-        p.y += p.velY;
-        p.velY += 0.4;
-        ctx.fillStyle = p.color;
-        ctx.fillRect(p.x, p.y, p.size, p.size);
-      });
-      if(particles.length > 0 && particles[0].y < canvas.height + 100) {
-        requestAnimationFrame(animateConfetti);
-      }
-    }
-
-    // Init
-    document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    if(currentChoice) {
-        // If returning user, show their result
-        document.getElementById('deciderPlaceholder').style.display = 'none';
-        document.getElementById('deciderResult').style.display = 'block';
-        document.getElementById('resultTitle').textContent = currentChoice.emoji + " " + currentChoice.name;
-        document.getElementById('resultDesc').textContent = currentChoice.desc;
-    }
+    document.getElementById('dateDisplay').textContent = new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   </script>
 </body>
 </html>
